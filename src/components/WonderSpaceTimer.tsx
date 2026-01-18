@@ -347,14 +347,11 @@ export default function WonderSpaceTimer() {
 
   // Spotify Playlists - curated focus playlists
   const spotifyPlaylists = [
-    { id: '37i9dQZF1DWWQRwui0ExPn', name: 'Lofi Beats', description: 'Chill beats to study/relax to', image: '🎵' },
-    { id: '37i9dQZF1DX8Uebhn9wzrS', name: 'Chill Lofi Study Beats', description: 'The perfect study companion', image: '📚' },
-    { id: '37i9dQZF1DWZeKCadgRdKQ', name: 'Deep Focus', description: 'Keep calm and focus', image: '🧠' },
-    { id: '37i9dQZF1DX9sIqqvKsjG8', name: 'Ambient Relaxation', description: 'Peaceful ambient sounds', image: '🌿' },
-    { id: '37i9dQZF1DX3Ogo9pFvBkY', name: 'Peaceful Piano', description: 'Relax with beautiful piano', image: '🎹' },
-    { id: '37i9dQZF1DWYoYGBbGKurt', name: 'Coding Mode', description: 'Electronic beats for coding', image: '💻' },
-    { id: '37i9dQZF1DX0SM0LYsmbMT', name: 'Jazz Vibes', description: 'Smooth jazz for focus', image: '🎷' },
-    { id: '37i9dQZF1DX4sWSpwq3LiO', name: 'Peaceful Guitar', description: 'Acoustic guitar melodies', image: '🎸' },
+    { id: '40YDTStEI21qg8wiSOWKRe', name: 'Focus Playlist 1', description: 'Music for deep focus', image: '🎵' },
+    { id: '2nfhK1bdWDhYpdc2GRB1qr', name: 'Focus Playlist 2', description: 'Stay in the zone', image: '📚' },
+    { id: '679wCT6dVMDBxrYa5NcrXL', name: 'Focus Playlist 3', description: 'Concentration music', image: '🧠' },
+    { id: '03OIbDlRyQpcgc77fd728J', name: 'Focus Playlist 4', description: 'Ambient focus sounds', image: '🌿' },
+    { id: '5zyBqCqymlyKEfYEMIhfxg', name: 'Focus Playlist 5', description: 'Calm & productive', image: '🎹' },
   ]
 
   // Base text shadow for visibility on any background - clean and subtle
@@ -401,6 +398,7 @@ export default function WonderSpaceTimer() {
           loop
           muted
           playsInline
+          preload="none"
         >
           <source src={currentThemeData.image} type="video/mp4" />
         </video>
@@ -761,14 +759,9 @@ export default function WonderSpaceTimer() {
                   title={theme.name}
                 >
                   {theme.isVideo ? (
-                    <video
-                      className="w-full h-full object-cover"
-                      muted
-                      loop
-                      autoPlay
-                    >
-                      <source src={theme.image} type="video/mp4" />
-                    </video>
+                    <div className="w-full h-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
+                      <span className="text-white text-xs">▶</span>
+                    </div>
                   ) : theme.isGradient ? (
                     <div 
                       className="w-full h-full flex items-center justify-center"
