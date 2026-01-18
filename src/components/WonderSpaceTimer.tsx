@@ -60,7 +60,7 @@ export default function WonderSpaceTimer() {
   const [currentTime, setCurrentTime] = useState(new Date())
   
   // Theme & Effects State
-  const [currentTheme, setCurrentTheme] = useState('cozy-room')
+  const [currentTheme, setCurrentTheme] = useState('room')
   const [selectedTimerDesign, setSelectedTimerDesign] = useState('default')
   const [rainEnabled, setRainEnabled] = useState(false)
   const [snowEnabled, setSnowEnabled] = useState(true)
@@ -716,48 +716,49 @@ export default function WonderSpaceTimer() {
       {/* Themes Panel */}
       {showThemesPanel && (
         <div className="absolute inset-0 flex items-center justify-center z-30 bg-black/50">
-          <div className="bg-gray-900/95 backdrop-blur-xl rounded-2xl p-6 border border-white/10 max-w-4xl w-full mx-4 max-h-[80vh] overflow-y-auto">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-white text-xl font-semibold">Background Themes</h3>
+          <div className="bg-gray-900/95 backdrop-blur-xl rounded-xl p-3 border border-white/10 max-w-4xl w-full mx-4">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-white text-sm font-semibold">Themes</h3>
               <button
                 onClick={() => setShowThemesPanel(false)}
                 className="text-white/50 hover:text-white"
               >
-                <X className="w-6 h-6" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
             {/* Theme Categories */}
-            <div className="flex gap-4 mb-6">
+            <div className="flex gap-2 mb-3">
               <button 
                 onClick={() => setThemeTab('static')}
-                className={`px-4 py-2 rounded-lg text-sm transition-all ${themeTab === 'static' ? 'bg-white/10 text-white' : 'text-white/50 hover:text-white'}`}
+                className={`px-2 py-1 rounded text-xs transition-all ${themeTab === 'static' ? 'bg-white/10 text-white' : 'text-white/50 hover:text-white'}`}
               >
-                Static
+                Static ({staticThemes.length})
               </button>
               <button 
                 onClick={() => setThemeTab('live')}
-                className={`px-4 py-2 rounded-lg text-sm transition-all ${themeTab === 'live' ? 'bg-white/10 text-white' : 'text-white/50 hover:text-white'}`}
+                className={`px-2 py-1 rounded text-xs transition-all ${themeTab === 'live' ? 'bg-white/10 text-white' : 'text-white/50 hover:text-white'}`}
               >
-                Live
+                Live ({liveThemes.length})
               </button>
               <button 
                 onClick={() => setThemeTab('colors')}
-                className={`px-4 py-2 rounded-lg text-sm transition-all ${themeTab === 'colors' ? 'bg-white/10 text-white' : 'text-white/50 hover:text-white'}`}
+                className={`px-2 py-1 rounded text-xs transition-all ${themeTab === 'colors' ? 'bg-white/10 text-white' : 'text-white/50 hover:text-white'}`}
               >
-                Colors
+                Colors ({colorThemes.length})
               </button>
             </div>
 
-            {/* Theme Grid */}
-            <div className="grid grid-cols-4 gap-4 max-h-[400px] overflow-y-auto">
+            {/* Theme Grid - Ultra compact layout to fit all without scrolling */}
+            <div className="grid grid-cols-7 sm:grid-cols-9 md:grid-cols-11 gap-1.5">
               {(themeTab === 'static' ? staticThemes : themeTab === 'live' ? liveThemes : colorThemes).map(theme => (
                 <button
                   key={theme.id}
                   onClick={() => { setCurrentTheme(theme.id); setShowThemesPanel(false) }}
-                  className={`relative aspect-video rounded-xl overflow-hidden border-2 transition-all ${
-                    currentTheme === theme.id ? 'border-amber-500' : 'border-transparent hover:border-white/30'
+                  className={`relative w-full h-12 sm:h-14 rounded-md overflow-hidden border-2 transition-all ${
+                    currentTheme === theme.id ? 'border-amber-500 ring-1 ring-amber-500/50' : 'border-transparent hover:border-white/30'
                   }`}
+                  title={theme.name}
                 >
                   {theme.isVideo ? (
                     <video
@@ -770,23 +771,19 @@ export default function WonderSpaceTimer() {
                     </video>
                   ) : theme.isGradient ? (
                     <div 
-                      className="w-full h-full flex flex-col items-center justify-center"
+                      className="w-full h-full flex items-center justify-center"
                       style={{ background: theme.gradient }}
                     >
-                      <span className="text-xl mb-1">{theme.emoji}</span>
+                      <span className="text-sm">{theme.emoji}</span>
                     </div>
                   ) : (
                     <img
                       src={theme.image}
                       alt={theme.name}
                       className="w-full h-full object-cover"
+                      loading="lazy"
                     />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-2 left-2 right-2">
-                    <div className="text-white text-xs font-medium">{theme.name}</div>
-                    {theme.description && <div className="text-white/60 text-[10px]">{theme.description}</div>}
-                  </div>
                 </button>
               ))}
             </div>
